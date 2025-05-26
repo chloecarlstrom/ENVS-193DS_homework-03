@@ -12,8 +12,12 @@ library(flextable)
 library(janitor)
 
 
-
+personal_data <- read.csv("data/ENVS 193DS personal data csv - data.csv", header = TRUE)
 
 
 ```
+
+*Problem 1*
+
+
 
