@@ -40,6 +40,9 @@ ggplot(data = personal_data, aes(x = time_spent_on_campus, y = step_count, color
 ```
 
 
+##c. Caption
+
+This scatterplot displays a comparison between time spent on campus (in hours) daily over a 30 day period and daily step count. The data points are colored by what type of workout I did that day. This data showcases generally higher step counts on days which I ran, and overall more workouts occurring on days where I spent less time on campus. Data: ENVS personal data
 
 
 
