@@ -10,6 +10,7 @@ library(tidyverse)
 library(here)
 library(flextable)
 library(janitor)
+library(ggplot2)
 
 
 personal_data <- read.csv("data/ENVS 193DS personal data csv - data.csv", header = TRUE)
@@ -17,7 +18,33 @@ personal_data <- read.csv("data/ENVS 193DS personal data csv - data.csv", header
 
 ```
 
-*Problem 1*
+#Problem 1
+
+##a. 
+For comparing time spent on campus/in class to daily step count, I could compare means of both groups to see if there is a correlation between the two variables. I would also want to compare the categorical variable of "type of workout" against step count to see if a particular workout type is correlated with higher step counts. Then to combine the two concepts I would also want to look if there is any relation between type of workout and the average amount of time spent on campus, for example if I spent less time on campus and in class, am I more likely to workout and/or have a higher step count. 
+
+##b. 
+
+```{r}
+ggplot(data = personal_data, aes(x = time_spent_on_campus, y = step_count, color = type_of_workout)) +
+  geom_point(size = 3) +
+  scale_color_manual(values = c(run = "royalblue", bike = "deeppink", none = "honeydew4", swim = "aquamarine", yoga = "magenta3",kayak = "orange3", hike = "forestgreen" )) +
+  labs(
+    title = "Daily Step Count vs Time Spent on Campus \ncolored by Type of Workout",
+    x = "Time Spent on Campus (hours)",
+    y = "Daily Step Count",
+    color = "Type of Workout"
+  ) +
+  theme_minimal()
+
+```
 
 
+
+
+
+
+
+
+```
 
