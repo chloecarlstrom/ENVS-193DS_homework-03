@@ -69,7 +69,19 @@ The authors are using a Mann-Whitney U test to look at various challenges faced 
 
 ![Paper table 3](images/screenshot_1.png)
 ![Paper table 4](images/screenshot_2.png)
+##b. Visual Clarity
 
+Both tables clearly represent the data underlying tests because they provide a detailed list of each category within the response variable (ranking of challenges) and provide the test statistics to demonstrate whether the results for each challenge were significant. They tables also include helpful summary statistics such as mean and number of respondents. 
+
+##c. Aesthetic Clarity
+
+The authors did a good job handling "visual clutter" as all the words are nicely spaced out to make the table easier to decipher. The headers are bolded to help clearly distinguish data columns. They also italicized which category each challenge fit into which I think is helpful to the reader. 
+
+##d. Recommendations
+I think they could have italicized/bolded/underlined significant p-values to showcase the important findings of the test. They also could have separated the test statistics into multiple columns to make the results easier to decipher visually. For example, have an individual column for mean rank, U, and p-value. 
+
+
+ 
 
 
 
