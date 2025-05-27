@@ -40,9 +40,37 @@ ggplot(data = personal_data, aes(x = time_spent_on_campus, y = step_count, color
 ```
 
 
+```{r}
+
+#plot of average step count grouped by workout
+
+
+
+```
+
+```{r}
+#plot of average step count compared to time spent on campus??
+
+
+```
+
+
+
 ##c. Caption
 
-This scatterplot displays a comparison between time spent on campus (in hours) daily over a 30 day period and daily step count. The data points are colored by what type of workout I did that day. This data showcases generally higher step counts on days which I ran, and overall more workouts occurring on days where I spent less time on campus. Data: ENVS personal data
+#Problem 2.
+
+
+#Problem 3.
+
+##a. Revisit and Summarize
+
+The authors are using a Mann-Whitney U test to look at various challenges faced by management organizations and see if there was a significant difference between those rankings.
+
+![Paper table 3](images/screenshot_1.png)
+![Paper table 4](images/screenshot_2.png)
+
+
 
 
 
