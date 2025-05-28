@@ -86,15 +86,14 @@ ggplot(personal_data, aes(x = time_spent_on_campus, y = step_count)) +
 #Problem 2.
 
 ##a.
-My initial thoughts for an affective visualization was to include separate icons for each workout type, organization in a weekly or calendar-like format and then distinguish step count possibly by size of icon. 
+My initial thoughts for an affective visualization was to include separate icons for each workout type, organization in a weekly or calendar-like format and then distinguish step count possibly by size of icon. Since my data are not all in within the same ranges or have the same units, I would have to figure out a way to relate them without one variable dominating. I could also find a way to plot the data over time since each data point is in correlation with one day. 
 
 ##b.
 
 ##c.
 
-
 ##d. 
-
+I am showing how my daily step count relates to the time I spend on campus and what type of workout I do each day. I drew inspiration from both Jill Pelto's paintings where the lines connecting the data points were transformed into a visual artistic piece, and the Dear Data project where multiple elements where combined to create a visualization that showcased each day's data. I chose to do my visualization using colored pencil. I started with trying to think of a visualization that would be able to include all my variables especially because they are all different (type of variable, units, range, etc.). Since my data has a time component I though it would be interesting to try an depict it as a visual timeline that artistic represented all of my data variables. 
 
 
 #Problem 3.
