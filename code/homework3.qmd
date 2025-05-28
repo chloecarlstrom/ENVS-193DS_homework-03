@@ -30,7 +30,7 @@ ggplot(data = personal_data, aes(x = time_spent_on_campus, y = step_count, color
   geom_point(size = 3) +
   scale_color_manual(values = c(run = "royalblue", bike = "deeppink", none = "honeydew4", swim = "darkturquoise", yoga = "magenta3",kayak = "orange3", hike = "forestgreen" )) +
   labs(
-    title = "Daily Step Count vs Time Spent on Campus \ncolored by Type of Workout",
+    title = "Figure 1. Daily Step Count vs Time Spent on Campus \ncolored by Type of Workout",
     x = "Time Spent on Campus (hours)",
     y = "Daily Step Count",
     color = "Type of Workout"
@@ -38,6 +38,11 @@ ggplot(data = personal_data, aes(x = time_spent_on_campus, y = step_count, color
   theme_minimal()
 
 ```
+
+##c. Caption
+Figure 1. shows daily step count (y-axis) compared to time spent on campus (x-axis) colored by type of workout. From this graph, we can see that higher step counts are often correlated with run as type of workout and that there may be slight correlation between decreasing time on campus and increasing step count. It also shows that workouts such as biking usually occur on days where I spent less or no time on campus which is likely due to these workouts being longer in duration.
+
+
 
 
 ```{r}
@@ -58,7 +63,7 @@ personal_data %>%
     "swim" = "darkturquoise"
   )) +
   labs(
-    title = "Average Daily Step Count by Type of Workout",
+    title = "Figure 2. Average Daily Step Count by Type of Workout",
     x = "Type of Workout",
     y = "Average Step Count"
   ) +
@@ -67,6 +72,10 @@ personal_data %>%
 
 ```
 
+##c. Caption
+Figure 2. shows average daily step count grouped by type of workout. This demonstrates that average step count is highest on days where I run or hike and lowest when I swim or bike. 
+
+
 ```{r}
 #plot of average step count compared to time spent on campus??
 
@@ -74,7 +83,7 @@ personal_data %>%
 ggplot(personal_data, aes(x = time_spent_on_campus, y = step_count)) +
   geom_point(color = "steelblue", size = 3, alpha = 0.7) +
   labs(
-    title = "Step Count vs. Time Spent on Campus",
+    title = "Figure 3. Step Count vs. Time Spent on Campus",
     x = "Time Spent on Campus (hours)",
     y = "Step Count"
   ) +
@@ -82,6 +91,61 @@ ggplot(personal_data, aes(x = time_spent_on_campus, y = step_count)) +
 ```
 
 ##c. Caption
+Figure 3. This visualizes daily step count compared to time spent on campus. From this we can see a possible negative correlation between step count and time spent on campus although there are a significant portion of days with low step counts and no time spent on campus. 
+
+
+##d. 
+```{r}
+grouped_summary <- personal_data %>% #summarizing step count statistics by type of workout
+  group_by(type_of_workout) %>% 
+  summarise(
+    Min = min(step_count, na.rm = TRUE),
+    Q1 = quantile(step_count, 0.25, na.rm = TRUE),
+    Median = median(step_count, na.rm = TRUE),
+    Mean = mean(step_count, na.rm = TRUE),
+    Q3 = quantile(step_count, 0.75, na.rm = TRUE),
+    Max = max(step_count, na.rm = TRUE),
+    SD = sd(step_count, na.rm = TRUE),
+    N = n(),
+    .groups = "drop"
+  )
+
+```
+
+```{r}
+
+overall_summary <- personal_data %>% #summarizing overall step count statistics
+  summarise(
+    type_of_workout = "Overall",
+    Min = min(step_count, na.rm = TRUE),
+    Q1 = quantile(step_count, 0.25, na.rm = TRUE),
+    Median = median(step_count, na.rm = TRUE),
+    Mean = mean(step_count, na.rm = TRUE),
+    Q3 = quantile(step_count, 0.75, na.rm = TRUE),
+    Max = max(step_count, na.rm = TRUE),
+    SD = sd(step_count, na.rm = TRUE),
+    N = n()
+  )
+
+```
+
+```{r}
+summary_table <- bind_rows(grouped_summary, overall_summary) %>% #grouping summaries together
+  mutate(across(where(is.numeric), ~ round(., 1)))  # Rounding to one decimal
+```
+
+
+```{r}
+ft <- summary_table %>%
+  flextable() %>%
+  set_caption("Table: Summary Statistics for Step Count by Type of Workout") %>%
+  set_header_labels(type_of_workout = "Type of Workout") %>%  # Clean column name
+  bold(i = nrow(summary_table), bold = TRUE) %>%           # Bold the overall row
+  hline(i = nrow(summary_table)) %>%  # Horizontal line above
+  autofit()
+
+ft
+```
 
 #Problem 2.
 
@@ -102,8 +166,8 @@ I am showing how my daily step count relates to the time I spend on campus and w
 
 The authors are using a Mann-Whitney U test to look at various challenges faced by management organizations and see if there was a significant difference between those rankings.
 
-![](screenshot_1.png)
-![](screenshot_2.png)
+![](images/screenshot_1.jpg)
+
 ##b. Visual Clarity
 
 Both tables clearly represent the data underlying tests because they provide a detailed list of each category within the response variable (ranking of challenges) and provide the test statistics to demonstrate whether the results for each challenge were significant. They tables also include helpful summary statistics such as mean and number of respondents. 
