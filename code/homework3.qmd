@@ -13,7 +13,7 @@ library(janitor)
 library(ggplot2)
 
 
-personal_data <- read.csv("data/ENVS 193DS personal data csv - data.csv", header = TRUE)
+personal_data <- read.csv("data/ENVS-193DS_personal_data.csv", header = TRUE)
 
 
 ```
