@@ -28,7 +28,7 @@ For comparing time spent on campus/in class to daily step count, I could compare
 ```{r}
 ggplot(data = personal_data, aes(x = time_spent_on_campus, y = step_count, color = type_of_workout)) +
   geom_point(size = 3) +
-  scale_color_manual(values = c(run = "royalblue", bike = "deeppink", none = "honeydew4", swim = "aquamarine", yoga = "magenta3",kayak = "orange3", hike = "forestgreen" )) +
+  scale_color_manual(values = c(run = "royalblue", bike = "deeppink", none = "honeydew4", swim = "darkturquoise", yoga = "magenta3",kayak = "orange3", hike = "forestgreen" )) +
   labs(
     title = "Daily Step Count vs Time Spent on Campus \ncolored by Type of Workout",
     x = "Time Spent on Campus (hours)",
@@ -44,6 +44,25 @@ ggplot(data = personal_data, aes(x = time_spent_on_campus, y = step_count, color
 
 #plot of average step count grouped by workout
 
+personal_data %>%
+  filter(type_of_workout %in% c("run","bike", "swim", "hike", "none")) %>% 
+  group_by(type_of_workout) %>%
+  summarise(avg_steps = mean(step_count, na.rm = TRUE)) %>%
+  ggplot(aes(x = reorder(type_of_workout, avg_steps), y = avg_steps, fill = type_of_workout)) +
+  geom_col() +
+  scale_fill_manual(values = c(
+    "run" = "royalblue",
+    "bike" = "deeppink",
+    "none" = "honeydew4",
+    "hike" = "forestgreen",
+    "swim" = "darkturquoise"
+  )) +
+  labs(
+    title = "Average Daily Step Count by Type of Workout",
+    x = "Type of Workout",
+    y = "Average Step Count"
+  ) +
+  theme(legend.position = "none")
 
 
 ```
@@ -51,10 +70,16 @@ ggplot(data = personal_data, aes(x = time_spent_on_campus, y = step_count, color
 ```{r}
 #plot of average step count compared to time spent on campus??
 
-
+# Scatter plot
+ggplot(personal_data, aes(x = time_spent_on_campus, y = step_count)) +
+  geom_point(color = "steelblue", size = 3, alpha = 0.7) +
+  labs(
+    title = "Step Count vs. Time Spent on Campus",
+    x = "Time Spent on Campus (hours)",
+    y = "Step Count"
+  ) +
+  theme_minimal()
 ```
-
-
 
 ##c. Caption
 
@@ -67,8 +92,8 @@ ggplot(data = personal_data, aes(x = time_spent_on_campus, y = step_count, color
 
 The authors are using a Mann-Whitney U test to look at various challenges faced by management organizations and see if there was a significant difference between those rankings.
 
-![Paper table 3](images/screenshot_1.png)
-![Paper table 4](images/screenshot_2.png)
+![](screenshot_1.png)
+![](screenshot_2.png)
 ##b. Visual Clarity
 
 Both tables clearly represent the data underlying tests because they provide a detailed list of each category within the response variable (ranking of challenges) and provide the test statistics to demonstrate whether the results for each challenge were significant. They tables also include helpful summary statistics such as mean and number of respondents. 
