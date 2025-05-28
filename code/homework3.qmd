@@ -85,6 +85,17 @@ ggplot(personal_data, aes(x = time_spent_on_campus, y = step_count)) +
 
 #Problem 2.
 
+##a.
+My initial thoughts for an affective visualization was to include separate icons for each workout type, organization in a weekly or calendar-like format and then distinguish step count possibly by size of icon. 
+
+##b.
+
+##c.
+
+
+##d. 
+
+
 
 #Problem 3.
 
