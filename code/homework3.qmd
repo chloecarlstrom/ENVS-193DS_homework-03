@@ -13,7 +13,7 @@ library(janitor)
 library(ggplot2)
 
 
-personal_data <- read.csv("data/ENVS-193DS_personal_data.csv", header = TRUE)
+#personal_data <- read.csv("data/ENVS-193DS_personal_data.csv", header = TRUE)
 
 
 ```
@@ -26,16 +26,16 @@ For comparing time spent on campus/in class to daily step count, I could compare
 ##b. 
 
 ```{r}
-ggplot(data = personal_data, aes(x = time_spent_on_campus, y = step_count, color = type_of_workout)) +
-  geom_point(size = 3) +
-  scale_color_manual(values = c(run = "royalblue", bike = "deeppink", none = "honeydew4", swim = "darkturquoise", yoga = "magenta3",kayak = "orange3", hike = "forestgreen" )) +
-  labs(
-    title = "Figure 1. Daily Step Count vs Time Spent on Campus \ncolored by Type of Workout",
-    x = "Time Spent on Campus (hours)",
-    y = "Daily Step Count",
-    color = "Type of Workout"
-  ) +
-  theme_minimal()
+#ggplot(data = personal_data, aes(x = time_spent_on_campus, y = step_count, color = type_of_workout)) +
+  #geom_point(size = 3) +
+  #scale_color_manual(values = c(run = "royalblue", bike = "deeppink", none = "honeydew4", swim = "darkturquoise", yoga = "magenta3",kayak = "orange3", hike = "forestgreen" )) +
+ # labs(
+    #title = "Figure 1. Daily Step Count vs Time Spent on Campus \ncolored by Type of Workout",
+    #x = "Time Spent on Campus (hours)",
+   # y = "Daily Step Count",
+    #color = "Type of Workout"
+  #) +
+  #theme_minimal()
 
 ```
 
@@ -49,16 +49,16 @@ Figure 1. shows daily step count (y-axis) compared to time spent on campus (x-ax
 
 #plot of average step count grouped by workout
 
-personal_data %>%
-  filter(type_of_workout %in% c("run","bike", "swim", "hike", "none")) %>% 
-  group_by(type_of_workout) %>%
-  summarise(avg_steps = mean(step_count, na.rm = TRUE)) %>%
-  ggplot(aes(x = reorder(type_of_workout, avg_steps), y = avg_steps, fill = type_of_workout)) +
-  geom_col() +
-  scale_fill_manual(values = c(
-    "run" = "royalblue",
-    "bike" = "deeppink",
-    "none" = "honeydew4",
+#personal_data %>%
+  #filter(type_of_workout %in% c("run","bike", "swim", "hike", "none")) %>% 
+  #group_by(type_of_workout) %>%
+  #summarise(avg_steps = mean(step_count, na.rm = TRUE)) %>%
+  #ggplot(aes(x = reorder(type_of_workout, avg_steps), y = avg_steps, fill = type_of_workout)) +
+  #geom_col() +
+ # scale_fill_manual(values = c(
+    #"run" = "royalblue",
+    #"bike" = "deeppink",
+    #"none" = "honeydew4",
     "hike" = "forestgreen",
     "swim" = "darkturquoise"
   )) +
@@ -181,10 +181,6 @@ I think they could have italicized/bolded/underlined significant p-values to sho
 
 
  
-
-
-
-
 
 
 
