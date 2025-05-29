@@ -1,11 +1,13 @@
 ---
+author: "Chloe Carlstrom"
 title: "homework3"
 format: html
 ---
 
 link: https://github.com/chloecarlstrom/ENVS-193DS_homework-03.git
 
-```{r}
+```{r message=FALSE, warning=FALSE}
+#reading in packages
 library(tidyverse)
 library(here)
 library(flextable)
@@ -13,33 +15,33 @@ library(janitor)
 library(ggplot2)
 
 
-#personal_data <- read.csv("data/ENVS-193DS_personal_data.csv", header = TRUE)
+personal_data <- read.csv(here("data", "ENVS-193DS_personal_data.csv")) #reading in file and saving as object
 
 
 ```
 
-#Problem 1
+# Problem 1
 
-##a. 
+## a. 
 For comparing time spent on campus/in class to daily step count, I could compare means of both groups to see if there is a correlation between the two variables. I would also want to compare the categorical variable of "type of workout" against step count to see if a particular workout type is correlated with higher step counts. Then to combine the two concepts I would also want to look if there is any relation between type of workout and the average amount of time spent on campus, for example if I spent less time on campus and in class, am I more likely to workout and/or have a higher step count. 
 
-##b. 
+## b. 
 
 ```{r}
-#ggplot(data = personal_data, aes(x = time_spent_on_campus, y = step_count, color = type_of_workout)) +
-  #geom_point(size = 3) +
-  #scale_color_manual(values = c(run = "royalblue", bike = "deeppink", none = "honeydew4", swim = "darkturquoise", yoga = "magenta3",kayak = "orange3", hike = "forestgreen" )) +
- # labs(
-    #title = "Figure 1. Daily Step Count vs Time Spent on Campus \ncolored by Type of Workout",
-    #x = "Time Spent on Campus (hours)",
-   # y = "Daily Step Count",
-    #color = "Type of Workout"
-  #) +
-  #theme_minimal()
+ggplot(data = personal_data, aes(x = time_spent_on_campus, y = step_count, color = type_of_workout)) + #plot of time spent on campus and step count, including type of workout
+  geom_point(size = 3) +
+  scale_color_manual(values = c(run = "royalblue", bike = "deeppink", none = "honeydew4", swim = "darkturquoise", yoga = "magenta3",kayak = "orange3", hike = "forestgreen" )) + #coloring by type of workout
+ labs( #changing titles
+    title = "Figure 1. Daily Step Count vs Time Spent on Campus \ncolored by Type of Workout",
+    x = "Time Spent on Campus (hours)",
+    y = "Daily Step Count",
+    color = "Type of Workout"
+  ) +
+  theme_minimal()
 
 ```
 
-##c. Caption
+## c. Caption
 Figure 1. shows daily step count (y-axis) compared to time spent on campus (x-axis) colored by type of workout. From this graph, we can see that higher step counts are often correlated with run as type of workout and that there may be slight correlation between decreasing time on campus and increasing step count. It also shows that workouts such as biking usually occur on days where I spent less or no time on campus which is likely due to these workouts being longer in duration.
 
 
@@ -49,40 +51,38 @@ Figure 1. shows daily step count (y-axis) compared to time spent on campus (x-ax
 
 #plot of average step count grouped by workout
 
-#personal_data %>%
-  #filter(type_of_workout %in% c("run","bike", "swim", "hike", "none")) %>% 
-  #group_by(type_of_workout) %>%
-  #summarise(avg_steps = mean(step_count, na.rm = TRUE)) %>%
-  #ggplot(aes(x = reorder(type_of_workout, avg_steps), y = avg_steps, fill = type_of_workout)) +
-  #geom_col() +
- # scale_fill_manual(values = c(
-    #"run" = "royalblue",
-    #"bike" = "deeppink",
-    #"none" = "honeydew4",
+personal_data %>% #data frame
+  filter(type_of_workout %in% c("run","bike", "swim", "hike", "none")) %>% #filtering workouts
+  group_by(type_of_workout) %>% #grouping by type of workout
+  summarise(avg_steps = mean(step_count, na.rm = TRUE)) %>% #taking average of step count
+  ggplot(aes(x = reorder(type_of_workout, avg_steps), y = avg_steps, fill = type_of_workout)) + #creating axes and fill
+  geom_col() + #bar plot
+  scale_fill_manual(values = c( #changing colors
+    "run" = "royalblue",
+    "bike" = "deeppink",
+    "none" = "honeydew4",
     "hike" = "forestgreen",
     "swim" = "darkturquoise"
   )) +
-  labs(
+  labs( #changing titles
     title = "Figure 2. Average Daily Step Count by Type of Workout",
     x = "Type of Workout",
     y = "Average Step Count"
   ) +
-  theme(legend.position = "none")
+  theme(legend.position = "none") #removing legend
 
 
 ```
 
-##c. Caption
+## c. Caption
 Figure 2. shows average daily step count grouped by type of workout. This demonstrates that average step count is highest on days where I run or hike and lowest when I swim or bike. 
 
 
 ```{r}
-#plot of average step count compared to time spent on campus??
 
-# Scatter plot
-ggplot(personal_data, aes(x = time_spent_on_campus, y = step_count)) +
-  geom_point(color = "steelblue", size = 3, alpha = 0.7) +
-  labs(
+ggplot(personal_data, aes(x = time_spent_on_campus, y = step_count)) + #plot of time spent on campus and step count
+  geom_point(color = "steelblue", size = 3, alpha = 0.7) + #scatterplot
+  labs( #changing titles
     title = "Figure 3. Step Count vs. Time Spent on Campus",
     x = "Time Spent on Campus (hours)",
     y = "Step Count"
@@ -90,15 +90,15 @@ ggplot(personal_data, aes(x = time_spent_on_campus, y = step_count)) +
   theme_minimal()
 ```
 
-##c. Caption
+## c. Caption
 Figure 3. This visualizes daily step count compared to time spent on campus. From this we can see a possible negative correlation between step count and time spent on campus although there are a significant portion of days with low step counts and no time spent on campus. 
 
 
-##d. 
+## d. 
 ```{r}
 grouped_summary <- personal_data %>% #summarizing step count statistics by type of workout
-  group_by(type_of_workout) %>% 
-  summarise(
+  group_by(type_of_workout) %>% #grouping by workout
+  summarise( #adding summary statistics
     Min = min(step_count, na.rm = TRUE),
     Q1 = quantile(step_count, 0.25, na.rm = TRUE),
     Median = median(step_count, na.rm = TRUE),
@@ -115,7 +115,7 @@ grouped_summary <- personal_data %>% #summarizing step count statistics by type 
 ```{r}
 
 overall_summary <- personal_data %>% #summarizing overall step count statistics
-  summarise(
+  summarise( #summary statistics
     type_of_workout = "Overall",
     Min = min(step_count, na.rm = TRUE),
     Q1 = quantile(step_count, 0.25, na.rm = TRUE),
@@ -131,7 +131,7 @@ overall_summary <- personal_data %>% #summarizing overall step count statistics
 
 ```{r}
 summary_table <- bind_rows(grouped_summary, overall_summary) %>% #grouping summaries together
-  mutate(across(where(is.numeric), ~ round(., 1)))  # Rounding to one decimal
+  mutate(across(where(is.numeric), ~ round(., 1)))  # rounding to one decimal
 ```
 
 
@@ -147,36 +147,36 @@ ft <- summary_table %>%
 ft
 ```
 
-#Problem 2.
+# Problem 2.
 
-##a.
+## a.
 My initial thoughts for an affective visualization was to include separate icons for each workout type, organization in a weekly or calendar-like format and then distinguish step count possibly by size of icon. Since my data are not all in within the same ranges or have the same units, I would have to figure out a way to relate them without one variable dominating. I could also find a way to plot the data over time since each data point is in correlation with one day. 
 
-##b.
+## b.
 
-##c.
+## c.
 
-##d. 
+## d. 
 I am showing how my daily step count relates to the time I spend on campus and what type of workout I do each day. I drew inspiration from both Jill Pelto's paintings where the lines connecting the data points were transformed into a visual artistic piece, and the Dear Data project where multiple elements where combined to create a visualization that showcased each day's data. I chose to do my visualization using colored pencil. I started with trying to think of a visualization that would be able to include all my variables especially because they are all different (type of variable, units, range, etc.). Since my data has a time component I though it would be interesting to try an depict it as a visual timeline that artistic represented all of my data variables. 
 
 
-#Problem 3.
+# Problem 3.
 
-##a. Revisit and Summarize
+## a. Revisit and Summarize
 
 The authors are using a Mann-Whitney U test to look at various challenges faced by management organizations and see if there was a significant difference between those rankings.
 
-![](images/screenshot_1.jpg)
+![](screenshot_1.png)
 
-##b. Visual Clarity
+## b. Visual Clarity
 
 Both tables clearly represent the data underlying tests because they provide a detailed list of each category within the response variable (ranking of challenges) and provide the test statistics to demonstrate whether the results for each challenge were significant. They tables also include helpful summary statistics such as mean and number of respondents. 
 
-##c. Aesthetic Clarity
+## c. Aesthetic Clarity
 
 The authors did a good job handling "visual clutter" as all the words are nicely spaced out to make the table easier to decipher. The headers are bolded to help clearly distinguish data columns. They also italicized which category each challenge fit into which I think is helpful to the reader. 
 
-##d. Recommendations
+## d. Recommendations
 I think they could have italicized/bolded/underlined significant p-values to showcase the important findings of the test. They also could have separated the test statistics into multiple columns to make the results easier to decipher visually. For example, have an individual column for mean rank, U, and p-value. 
 
 
