@@ -1,5 +1,6 @@
 ---
 author: "Chloe Carlstrom"
+date: "5/28/25"
 title: "homework 3"
 format: html
 toc: true
