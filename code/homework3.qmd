@@ -2,6 +2,7 @@
 author: "Chloe Carlstrom"
 title: "homework 3"
 format: html
+toc: true
 ---
 
 link: https://github.com/chloecarlstrom/ENVS-193DS_homework-03.git
